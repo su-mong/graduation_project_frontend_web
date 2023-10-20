@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_view_model.dart';
 
-class RequestVoteViewModel extends GetxController {
+class RequestVoteViewModel extends BaseViewModel {
   final VoidCallback changeState;
   RequestVoteViewModel({required this.changeState});
 

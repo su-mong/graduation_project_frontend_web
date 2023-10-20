@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
 import 'package:vote_engine_frontend_example/models/player_info.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_view_model.dart';
 
-class ConfirmVoteViewModel extends GetxController {
+class ConfirmVoteViewModel extends BaseViewModel {
   final PlayerInfo first;
   final PlayerInfo second;
   final PlayerInfo third;

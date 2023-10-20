@@ -42,7 +42,7 @@ class MainScreen extends GetView<MainViewModel> {
           case PageState.enterPhoneNumber:
             Get.put<EnterPhoneNumberViewModel>(
               EnterPhoneNumberViewModel(
-                changeState: () => controller.changeState(PageState.enterVerificationCode),
+                gotoEnterVerificationCode: controller.gotoEnterVerificationCode,
               ),
             );
             return const EnterPhoneNumberScreen();
@@ -51,7 +51,8 @@ class MainScreen extends GetView<MainViewModel> {
           case PageState.enterVerificationCode:
             Get.put<EnterVerificationCodeViewModel>(
               EnterVerificationCodeViewModel(
-                changeStateToSuccess: () => controller.changeState(PageState.showingVoteId),
+                phoneNumber: controller.pageArguments[0],
+                gotoShowingVoteId: controller.gotoShowingVoteId,
                 changeStateToFailure: () => controller.changeState(PageState.failIdentification),
               ),
             );
@@ -61,6 +62,7 @@ class MainScreen extends GetView<MainViewModel> {
           case PageState.showingVoteId:
             Get.put<ShowingVoteIdViewModel>(
               ShowingVoteIdViewModel(
+                voteId: controller.pageArguments[0],
                 changeState: () => controller.changeState(PageState.vote),
               ),
             );

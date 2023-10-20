@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:vote_engine_frontend_example/models/player_info.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_view_model.dart';
 
-class VoteResultViewModel extends GetxController {
+class VoteResultViewModel extends BaseViewModel {
   final PlayerInfo first = const PlayerInfo(
     teamMainColor: Color(0xFFAB8A00),
     teamSelectingBackgroundOpacity: 0.6,

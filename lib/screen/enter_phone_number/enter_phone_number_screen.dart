@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vote_engine_frontend_example/screen/base_screen.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_screen.dart';
 import 'package:vote_engine_frontend_example/screen/enter_phone_number/enter_phone_number_view_model.dart';
 import 'package:vote_engine_frontend_example/widget/main_button.dart';
 import 'package:vote_engine_frontend_example/widget/main_input_field.dart';
@@ -53,21 +53,6 @@ class EnterPhoneNumberScreen extends BaseScreen<EnterPhoneNumberViewModel> {
             _PhoneTextInputFormatter(),
           ],
         ),
-        /*SizedBox(height: 16.h),
-
-        SizedBox(
-          width: 754.h,
-          child: Text(
-            '· The Vote ID is used to check the options you voted for, or to proceed with a vote that you couldn\'t finish.'
-                '\n· If you lose your Vote ID, there\'s no way to find it, so make sure to write it down somewhere else.',
-            style: TextStyle(
-              fontSize: 22.sp,
-              fontWeight: FontWeight.w400,
-              height: 26 / 22,
-              color: const Color(0xFFFFFFFF),
-            ),
-          ),
-        ),*/
         const Spacer(),
 
         MainButton(

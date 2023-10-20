@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vote_engine_frontend_example/screen/base_screen.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_screen.dart';
 import 'package:vote_engine_frontend_example/screen/start/start_view_model.dart';
 import 'package:vote_engine_frontend_example/widget/main_button.dart';
 

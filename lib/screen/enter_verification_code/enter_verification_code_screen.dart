@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vote_engine_frontend_example/screen/base_screen.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_screen.dart';
 import 'package:vote_engine_frontend_example/screen/enter_verification_code/enter_verification_code_view_model.dart';
 import 'package:vote_engine_frontend_example/widget/main_button.dart';
 import 'package:vote_engine_frontend_example/widget/main_input_field.dart';

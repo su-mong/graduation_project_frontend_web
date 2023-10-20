@@ -1,13 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_view_model.dart';
+import 'package:vote_engine_frontend_example/services/contract_service.dart';
+import 'package:vote_engine_frontend_example/widget/error_dialog.dart';
 
-class StartViewModel extends GetxController {
+class StartViewModel extends BaseViewModel {
+  final ContractService _contractService = Get.find();
+
   final VoidCallback changeState;
 
   StartViewModel({required this.changeState});
 
-  void gotoNext() {
-    changeState();
+  Future<void> gotoNext() async {
+    loading(true);
+    final result = await _contractService.connectWallet();
+    loading(false);
+
+    if(result) {
+      changeState();
+    } else {
+      Get.dialog(
+        ErrorDialog(message: '지갑 연결에 실패했습니다. 다시 시도해 주세요.'),
+      );
+    }
   }
 }
 

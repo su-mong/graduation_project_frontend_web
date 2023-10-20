@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
-import 'package:vote_engine_frontend_example/screen/base_screen.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_screen.dart';
 import 'package:vote_engine_frontend_example/screen/showing_vote_id/showing_vote_id_view_model.dart';
 import 'package:vote_engine_frontend_example/widget/main_button.dart';
 
@@ -50,15 +49,13 @@ class ShowingVoteIdScreen extends BaseScreen<ShowingVoteIdViewModel> {
             color: const Color(0xFFFFFFFF).withOpacity(0.3),
             borderRadius: BorderRadius.circular(8.h),
           ),
-          child: Obx(
-            () => Text(
-              controller.voteId.value,
-              style: TextStyle(
-                fontSize: 36.sp,
-                fontWeight: FontWeight.w700,
-                height: 26 / 36,
-                color: const Color(0xFFFFFFFF),
-              ),
+          child: Text(
+            controller.voteId,
+            style: TextStyle(
+              fontSize: 36.sp,
+              fontWeight: FontWeight.w700,
+              height: 26 / 36,
+              color: const Color(0xFFFFFFFF),
             ),
           ),
         ),

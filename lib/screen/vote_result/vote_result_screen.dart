@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vote_engine_frontend_example/enums/vote_button_state.dart';
 import 'package:vote_engine_frontend_example/models/player_info.dart';
-import 'package:vote_engine_frontend_example/screen/base_screen.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_screen.dart';
 import 'package:vote_engine_frontend_example/screen/vote_result/vote_result_view_model.dart';
 
 class VoteResultScreen extends BaseScreen<VoteResultViewModel> {

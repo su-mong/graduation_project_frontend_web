@@ -1,11 +1,16 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:get/get.dart';
 import 'package:vote_engine_frontend_example/enums/vote_button_state.dart';
 import 'package:vote_engine_frontend_example/enums/vote_stage.dart';
 import 'package:vote_engine_frontend_example/models/player_info.dart';
+import 'package:vote_engine_frontend_example/screen/base/base_view_model.dart';
+import 'package:vote_engine_frontend_example/services/contract_service.dart';
 
-class VoteViewModel extends GetxController {
+class VoteViewModel extends BaseViewModel {
+  final ContractService _contractService = Get.find();
+
   final void Function({required PlayerInfo first, required PlayerInfo second, required PlayerInfo third}) gotoConfirmVote;
   VoteViewModel({required this.gotoConfirmVote});
 
@@ -18,91 +23,30 @@ class VoteViewModel extends GetxController {
   PlayerInfo? _third;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
 
-    playerList.value = const [
-      PlayerInfo(
-        teamMainColor: Color(0xFFAB8A00),
-        teamSelectingBackgroundOpacity: 0.6,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/chovy.png',
-        name: 'Chovy',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/geng.png',
-        teamName: 'GEN',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFFE4002C),
-        teamSelectingBackgroundOpacity: 0.5,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/faker.png',
-        name: 'Faker',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/t1.png',
-        teamName: 'T1',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFFFF0806),
-        teamSelectingBackgroundOpacity: 0.5,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/bdd.png',
-        name: 'Bdd',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/kt.png',
-        teamName: 'KT',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFFFF6C02),
-        teamSelectingBackgroundOpacity: 0.6,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/zeka.png',
-        name: 'Zeka',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/hanwha.png',
-        teamName: 'HLE',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFFE3EE84),
-        teamSelectingBackgroundOpacity: 0.5,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/showmaker.png',
-        name: 'ShowMaker',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/dplus.png',
-        teamName: 'DK',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFFFFC900),
-        teamSelectingBackgroundOpacity: 0.5,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/clozer.png',
-        name: 'Clozer',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/liiv.png',
-        teamName: 'LSB',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFFE73312),
-        teamSelectingBackgroundOpacity: 0.6,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/bulldog.png',
-        name: 'BuLLDoG',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/freecs.png',
-        teamName: 'KDF',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFF01492B),
-        teamSelectingBackgroundOpacity: 0.6,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/karis.png',
-        name: 'Karis',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/brion.png',
-        teamName: 'BRO',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFF1002A3),
-        teamSelectingBackgroundOpacity: 0.6,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/fate.png',
-        name: 'FATE',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/drx.png',
-        teamName: 'DRX',
-      ),
-      PlayerInfo(
-        teamMainColor: Color(0xFFDF2027),
-        teamSelectingBackgroundOpacity: 0.6,
-        profileUrl: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/fiesta.png',
-        name: 'FIESTA',
-        teamLogoSrc: 'https://raw.githubusercontent.com/su-mong/graduation_project/main/images/nongshim.png',
-        teamName: 'NS',
-      ),
-    ];
+    loading(true);
+
+    final callResult = json.decode(await _contractService.contract.call<String>('callMetadata'));
+    print('callResult.data : $callResult (${callResult.runtimeType})');
+
+    playerList.value = ((callResult as Map<String, dynamic>)['data'] as List<dynamic>).map(
+      (player) {
+        final playerMap = player as Map<String, dynamic>;
+
+        return PlayerInfo(
+          teamMainColor: Color(int.parse(playerMap['mainColor'], radix: 16)),
+          teamSelectingBackgroundOpacity: playerMap['teamSelectingBackgroundOpacityPercent'],
+          profileUrl: playerMap['smallProfileUrl'],
+          name: playerMap['name'],
+          teamLogoSrc: playerMap['teamLogoUrl'],
+          teamName: playerMap['teamName'],
+        );
+      },
+    ).toList();
+
+    loading(false);
 
     for(var i=0; i<playerList.length; i++) {
       playerState.add(VoteButtonState.unSelected.obs);
@@ -151,4 +95,57 @@ class VoteViewModel extends GetxController {
       }
     }
   }
+
+  /*
+  PlayerInfo(
+        teamMainColor: Color(0xFFAB8A00),
+        teamSelectingBackgroundOpacity: 0.6,
+        teamName: 'GEN',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFFE4002C),
+        teamSelectingBackgroundOpacity: 0.5,
+        teamName: 'T1',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFFFF0806),
+        teamSelectingBackgroundOpacity: 0.5,
+        teamName: 'KT',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFFFF6C02),
+        teamSelectingBackgroundOpacity: 0.6,
+        teamName: 'HLE',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFFE3EE84),
+        teamSelectingBackgroundOpacity: 0.5,
+        teamName: 'DK',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFFFFC900),
+        teamSelectingBackgroundOpacity: 0.5,
+        teamName: 'LSB',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFFE73312),
+        teamSelectingBackgroundOpacity: 0.6,
+        teamName: 'KDF',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFF01492B),
+        teamSelectingBackgroundOpacity: 0.6,
+        teamName: 'BRO',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFF1002A3),
+        teamSelectingBackgroundOpacity: 0.6,
+        teamName: 'DRX',
+      ),
+      PlayerInfo(
+        teamMainColor: Color(0xFFDF2027),
+        teamSelectingBackgroundOpacity: 0.6,
+        teamName: 'NS',
+      )
+  */
 }
