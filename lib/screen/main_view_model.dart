@@ -4,7 +4,7 @@ import 'package:vote_engine_frontend_example/screen/page_state.dart';
 
 class MainViewModel extends GetxController {
   List<dynamic> pageArguments = [];
-  final Rx<PageState> _pageState = Rx(PageState.start);
+  final Rx<PageState> _pageState = Rx(PageState.enterPhoneNumber);
   PageState get pageState => _pageState.value;
 
   void changeState(PageState state) => _pageState.value = state;

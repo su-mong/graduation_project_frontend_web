@@ -28,7 +28,7 @@ class ContractService extends GetxService {
     final interfaceABI = jsonEncode(decodedJsonABI);
     final interface = Interface(interfaceABI);
     print('interface : $interface');
-    const byteAddress = '0x3A9E0505F135113AB27656EaeF761a03927bc309'; // '0x24124abCa7AE55cFd55ace375BbEC6A9a46a4E0F';
+    const byteAddress = '0x92c27580427D967D65490C4382059F78D7E21452'; // '0x3A9E0505F135113AB27656EaeF761a03927bc309'; // '0x24124abCa7AE55cFd55ace375BbEC6A9a46a4E0F';
     print('byteAddress : $byteAddress');
 
     contract = Contract(

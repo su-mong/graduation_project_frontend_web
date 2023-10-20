@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:vote_engine_frontend_example/networks/auth_connect.dart';
 import 'package:vote_engine_frontend_example/screen/base/base_view_model.dart';
-import 'package:vote_engine_frontend_example/services/contract_service.dart';
-import 'package:vote_engine_frontend_example/utils.dart';
+import 'package:vote_engine_frontend_example/widget/error_dialog.dart';
 
 class EnterPhoneNumberViewModel extends BaseViewModel {
-  final ContractService _contractService = Get.find();
   final void Function(String phoneNumber) gotoEnterVerificationCode;
 
   EnterPhoneNumberViewModel({required this.gotoEnterVerificationCode});
@@ -14,22 +13,17 @@ class EnterPhoneNumberViewModel extends BaseViewModel {
 
   Future<void> submitPhoneNumber() async {
     loading(true);
-
-    final callResult = await _contractService.contract.send(
-      'sendVerificationCode',
-      [[phoneController.text.replaceAll('-', '')]],
+    final result = await AuthConnect().sendRequestCode(
+      phoneNumber: phoneController.text.replaceAll('-', ''),
     );
-    await callResult.wait();
-    print('${phoneController.text.replaceAll('-', '')}\'s callResult.data : ${callResult.data}');
+    loading(false);
 
-    // Receive an event when ANY transfer occurs
-    _contractService.contract.on('ResponseSendCode', (requestId, response, err, event) {
-      print('     requestId : $requestId');
-      print('     response : ${convertHexToString(response)}');
-      print('     err : ${convertHexToString(err)}');
-      // Event.fromJS(event); // Event: Transfer Transfer(address,address,uint256) with args [0x0648ff5de80Adf54aAc07EcE2490f50a418Dde23, 0x12c64E61440582793EF4964A36d98020d83490a3, 1015026418461703883891]
-      loading(false);
+    if(result) {
       gotoEnterVerificationCode(phoneController.text.replaceAll('-', ''));
-    });
+    } else {
+      Get.dialog(
+        ErrorDialog(message: '오류가 발생했습니다. 다시 시도해 주세요.'),
+      );
+    }
   }
 }
