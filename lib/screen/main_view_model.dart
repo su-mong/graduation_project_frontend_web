@@ -3,8 +3,8 @@ import 'package:vote_engine_frontend_example/models/player_info.dart';
 import 'package:vote_engine_frontend_example/screen/page_state.dart';
 
 class MainViewModel extends GetxController {
-  List<dynamic> pageArguments = [];
-  final Rx<PageState> _pageState = Rx(PageState.enterPhoneNumber);
+  List<dynamic> pageArguments = ['01022851094'];
+  final Rx<PageState> _pageState = Rx(PageState.start);
   PageState get pageState => _pageState.value;
 
   void changeState(PageState state) => _pageState.value = state;
@@ -14,8 +14,8 @@ class MainViewModel extends GetxController {
     changeState(PageState.enterVerificationCode);
   }
 
-  void gotoShowingVoteId(String voteId) {
-    pageArguments = [voteId];
+  void gotoShowingVoteId(String phoneNumber) {
+    pageArguments = [phoneNumber];
     changeState(PageState.showingVoteId);
   }
 

@@ -62,7 +62,7 @@ class MainScreen extends GetView<MainViewModel> {
           case PageState.showingVoteId:
             Get.put<ShowingVoteIdViewModel>(
               ShowingVoteIdViewModel(
-                voteId: controller.pageArguments[0],
+                phoneNumber: controller.pageArguments[0],
                 changeState: () => controller.changeState(PageState.vote),
               ),
             );
@@ -97,6 +97,9 @@ class MainScreen extends GetView<MainViewModel> {
           case PageState.requestVote:
             Get.put<RequestVoteViewModel>(
               RequestVoteViewModel(
+                first: controller.pageArguments[0],
+                second: controller.pageArguments[1],
+                third: controller.pageArguments[2],
                 changeState: () => controller.changeState(PageState.voteResult),
               ),
             );

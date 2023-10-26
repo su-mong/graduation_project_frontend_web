@@ -13,6 +13,8 @@ class ContractService extends GetxService {
   int currentChain = -1;
   bool wcConnected = false;
 
+  String? voteId;
+
   bool get isInOperatingChain => currentChain == OPERATING_CHAIN;
   bool get isConnected => Ethereum.isSupported && currentAddress.isNotEmpty;
 
@@ -24,11 +26,11 @@ class ContractService extends GetxService {
     print('rpcProvider : $rpcProvider');
     print('rpcProvider.network : ${await rpcProvider.getNetwork()}');
 
-    final decodedJsonABI = jsonDecode(await rootBundle.loadString('assets/testabi.json'));
+    final decodedJsonABI = jsonDecode(await rootBundle.loadString('assets/abi.json'));
     final interfaceABI = jsonEncode(decodedJsonABI);
     final interface = Interface(interfaceABI);
     print('interface : $interface');
-    const byteAddress = '0x92c27580427D967D65490C4382059F78D7E21452'; // '0x3A9E0505F135113AB27656EaeF761a03927bc309'; // '0x24124abCa7AE55cFd55ace375BbEC6A9a46a4E0F';
+    const byteAddress = '0x3a949FAFcA0635806856da7CbFcb1C949A597343';
     print('byteAddress : $byteAddress');
 
     contract = Contract(

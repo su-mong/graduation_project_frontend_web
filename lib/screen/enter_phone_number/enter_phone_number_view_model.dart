@@ -18,12 +18,6 @@ class EnterPhoneNumberViewModel extends BaseViewModel {
     );
     loading(false);
 
-    if(result) {
-      gotoEnterVerificationCode(phoneController.text.replaceAll('-', ''));
-    } else {
-      Get.dialog(
-        ErrorDialog(message: '오류가 발생했습니다. 다시 시도해 주세요.'),
-      );
-    }
+    gotoEnterVerificationCode(phoneController.text.replaceAll('-', ''));
   }
 }

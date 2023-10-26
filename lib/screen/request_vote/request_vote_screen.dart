@@ -23,7 +23,7 @@ class RequestVoteScreen extends BaseScreen<RequestVoteViewModel> {
           child: Center(
             child: Obx(
               () => Text(
-                controller.isLoading.value
+                controller.loading.value
                     ? 'Your vote results are being transmitted.\n\nPlease wait a moment.'
                     : 'The result of the vote was reflected normally.\n\nThank you for your participation.',
                 style: TextStyle(
@@ -40,7 +40,7 @@ class RequestVoteScreen extends BaseScreen<RequestVoteViewModel> {
 
         Obx(
           () {
-            if(controller.isLoading.value) {
+            if(controller.loading.value) {
               return const SizedBox();
             }
 

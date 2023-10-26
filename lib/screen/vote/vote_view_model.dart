@@ -28,7 +28,7 @@ class VoteViewModel extends BaseViewModel {
 
     loading(true);
 
-    final callResult = json.decode(await _contractService.contract.call<String>('callMetadata'));
+    final callResult = json.decode(await _contractService.contract.call<String>('callOptionsMetadata'));
     print('callResult.data : $callResult (${callResult.runtimeType})');
 
     playerList.value = ((callResult as Map<String, dynamic>)['data'] as List<dynamic>).map(

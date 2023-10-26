@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:vote_engine_frontend_example/enums/vote_button_state.dart';
 import 'package:vote_engine_frontend_example/models/player_info.dart';
 import 'package:vote_engine_frontend_example/screen/base/base_screen.dart';
@@ -30,15 +31,23 @@ class MyVoteScreen extends BaseScreen<MyVoteViewModel> {
         ),
         SizedBox(height: 26.h),
 
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _contents(controller.first, state: VoteButtonState.isFirst),
-            SizedBox(width: 106.h),
-            _contents(controller.second, state: VoteButtonState.isSecond),
-            SizedBox(width: 106.h),
-            _contents(controller.third, state: VoteButtonState.isThird),
-          ],
+        Obx(
+          () {
+            if(controller.first.value == null || controller.second.value == null || controller.third.value == null) {
+              return const SizedBox.shrink();
+            }
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _contents(controller.first.value!, state: VoteButtonState.isFirst),
+                SizedBox(width: 106.h),
+                _contents(controller.second.value!, state: VoteButtonState.isSecond),
+                SizedBox(width: 106.h),
+                _contents(controller.third.value!, state: VoteButtonState.isThird),
+              ],
+            );
+          }
         ),
       ],
     );

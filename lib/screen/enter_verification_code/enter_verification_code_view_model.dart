@@ -8,7 +8,7 @@ class EnterVerificationCodeViewModel extends BaseViewModel {
   final ContractService _contractService = Get.find();
 
   final String phoneNumber;
-  final void Function(String voteId) gotoShowingVoteId;
+  final void Function(String phoneNumber) gotoShowingVoteId;
   final VoidCallback changeStateToFailure;
 
   EnterVerificationCodeViewModel({
@@ -23,8 +23,8 @@ class EnterVerificationCodeViewModel extends BaseViewModel {
     loading(true);
 
     final callResult = await _contractService.contract.send(
-      'verifyUserIdentifier',
-      [phoneNumber, codeController.text],
+      'callVerifyUserIdentifierApi',
+      [[phoneNumber, codeController.text]]
     );
     await callResult.wait();
     print('$phoneNumber\'s callResult.data : ${callResult.data}');
@@ -34,20 +34,12 @@ class EnterVerificationCodeViewModel extends BaseViewModel {
       print('     requestId : $requestId');
       print('     response : ${convertHexToString(response)}');
       print('     err : ${convertHexToString(err)}');
-      // Event.fromJS(event); // Event: Transfer Transfer(address,address,uint256) with args [0x0648ff5de80Adf54aAc07EcE2490f50a418Dde23, 0x12c64E61440582793EF4964A36d98020d83490a3, 1015026418461703883891]
 
       if(convertHexToString(err).isEmpty) {
         loading(false);
         changeStateToFailure();
       } else {
-        final voteIdResult = await _contractService.contract.send(
-          'issueVoteId',
-          [_contractService.currentAddress, phoneNumber],
-        );
-        await voteIdResult.wait();
-        print('voteIdResult.data : ${voteIdResult.data}');
-
-        gotoShowingVoteId(voteIdResult.data);
+        gotoShowingVoteId(phoneNumber);
       }
     });
   }

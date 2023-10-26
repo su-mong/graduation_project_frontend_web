@@ -1,25 +1,18 @@
 [
 	{
-		"inputs": [],
-		"name": "acceptOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
+		"inputs": [
+			{
+				"internalType": "string[]",
+				"name": "_optionSet",
+				"type": "string[]"
+			}
+		],
 		"stateMutability": "nonpayable",
 		"type": "constructor"
 	},
 	{
-		"inputs": [
-			{
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			}
-		],
-		"name": "ApiCallNotFinishedYet",
+		"inputs": [],
+		"name": "DeadlineIsUp",
 		"type": "error"
 	},
 	{
@@ -35,53 +28,39 @@
 	{
 		"inputs": [
 			{
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			},
-			{
-				"internalType": "bytes",
-				"name": "response",
-				"type": "bytes"
-			},
-			{
-				"internalType": "bytes",
-				"name": "err",
-				"type": "bytes"
-			}
-		],
-		"name": "handleOracleFulfillment",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "walletId",
-				"type": "address"
-			},
-			{
 				"internalType": "string",
-				"name": "ideitifier",
+				"name": "voteId",
 				"type": "string"
 			}
 		],
-		"name": "issueVoteId",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
+		"name": "ExceededWeightPerUser",
+		"type": "error"
 	},
 	{
 		"inputs": [],
 		"name": "NoInlineSecrets",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "optionName",
+				"type": "string"
+			}
+		],
+		"name": "NotValidOptionName",
+		"type": "error"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "voteId",
+				"type": "string"
+			}
+		],
+		"name": "NotValidVoteId",
 		"type": "error"
 	},
 	{
@@ -186,102 +165,8 @@
 				"type": "bytes"
 			}
 		],
-		"name": "ResponseSendCode",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes",
-				"name": "response",
-				"type": "bytes"
-			},
-			{
-				"indexed": false,
-				"internalType": "bytes",
-				"name": "err",
-				"type": "bytes"
-			}
-		],
 		"name": "ResponseVerifyUser",
 		"type": "event"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string[]",
-				"name": "args",
-				"type": "string[]"
-			}
-		],
-		"name": "sendVerificationCode",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "string",
-				"name": "phoneNumber",
-				"type": "string"
-			},
-			{
-				"internalType": "string",
-				"name": "code",
-				"type": "string"
-			}
-		],
-		"name": "verifyUserIdentifier",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "requestId",
-				"type": "bytes32"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "_lastErrorSendCode",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
 	},
 	{
 		"inputs": [],
@@ -291,19 +176,6 @@
 				"internalType": "bytes",
 				"name": "",
 				"type": "bytes"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
-		"name": "_lastRequestIdSendCode",
-		"outputs": [
-			{
-				"internalType": "bytes32",
-				"name": "",
-				"type": "bytes32"
 			}
 		],
 		"stateMutability": "view",
@@ -324,19 +196,6 @@
 	},
 	{
 		"inputs": [],
-		"name": "_lastResponseSendCode",
-		"outputs": [
-			{
-				"internalType": "bytes",
-				"name": "",
-				"type": "bytes"
-			}
-		],
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"inputs": [],
 		"name": "_lastResponseVerifyUser",
 		"outputs": [
 			{
@@ -350,12 +209,261 @@
 	},
 	{
 		"inputs": [],
+		"name": "acceptOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "callOptionsMetadata",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string[]",
+				"name": "args",
+				"type": "string[]"
+			}
+		],
+		"name": "callVerifyUserIdentifierApi",
+		"outputs": [
+			{
+				"internalType": "bytes32",
+				"name": "requestId",
+				"type": "bytes32"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
+			}
+		],
+		"name": "checkUpkeep",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "upkeepNeeded",
+				"type": "bool"
+			},
+			{
+				"internalType": "bytes",
+				"name": "performData",
+				"type": "bytes"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "deadline",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "voteId",
+				"type": "string"
+			}
+		],
+		"name": "getUserVoteRecord",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "optionName",
+				"type": "string"
+			}
+		],
+		"name": "getVoteResultPerOption",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "givingWeightPerUser",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes32",
+				"name": "requestId",
+				"type": "bytes32"
+			},
+			{
+				"internalType": "bytes",
+				"name": "response",
+				"type": "bytes"
+			},
+			{
+				"internalType": "bytes",
+				"name": "err",
+				"type": "bytes"
+			}
+		],
+		"name": "handleOracleFulfillment",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "phoneNumber",
+				"type": "string"
+			}
+		],
+		"name": "issueVoteId",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
 		"name": "owner",
 		"outputs": [
 			{
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "",
+				"type": "bytes"
+			}
+		],
+		"name": "performUpkeep",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "voteId",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "first",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "second",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "third",
+				"type": "string"
+			}
+		],
+		"name": "selectFirst",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "showUserVoteId",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "voteState",
+		"outputs": [
+			{
+				"internalType": "enum VoteState",
+				"name": "",
+				"type": "uint8"
 			}
 		],
 		"stateMutability": "view",
